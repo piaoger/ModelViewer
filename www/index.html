@@ -1,0 +1,633 @@
+<!doctype html>
+
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+
+    <title>Stl Model Viewer</title>
+
+
+    <!-- Chrome Frame Installation-->
+    <script type="application/x-javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+    <style>
+        .chromeFrameInstallDefaultStyle {
+             margin-top: 10px;
+             width: 800px;
+             border: 5px solid blue;
+        }
+
+
+        #cam-widget
+        {
+          font-size: 14px;
+          left: 35px;
+          position: absolute;
+          top: 130px;
+          width: 60px;
+          z-index: 1;
+        }
+
+        #cam-widget small
+        {
+          color: #c0c0c0;
+        }
+
+        #cam-widget .cam-widget-body
+        {
+          background: #303840;
+          background: -moz-linear-gradient(center bottom,#303840 0,#202224 100%);
+          background: -ms-linear-gradient(bottom,#303840,#202224);
+          background: -webkit-gradient(linear,left bottom,left top,color-stop(0,#303840),color-stop(1,#202224));
+          border: 1px solid #111;
+          box-shadow: 0 1px 6px rgba(0,0,0,0.5);
+          cursor: default;
+          khtml-user-select: none;
+          moz-box-shadow: 0 1px 6px rgba(0,0,0,0.5);
+          moz-user-select: -moz-none;
+          opacity: .7;
+          position: absolute;
+          user-select: none;
+          webkit-box-shadow: 0 1px 6px rgba(0,0,0,0.5);
+          webkit-user-select: none;
+        }
+        #cam-widget #cam-widget-rot
+        {
+          background-clip: padding-box;
+          border-radius: 30px;
+          height: 60px;
+          left: 0;
+          moz-background-clip: padding;
+          moz-border-radius: 30px;
+          top: 0;
+          webkit-background-clip: padding-box;
+          webkit-border-radius: 30px;
+          width: 60px;
+        }
+        #cam-widget #cam-widget-center
+        {
+          background-clip: padding-box;
+          border-radius: 4px;
+          height: 24px;
+          left: 18px;
+          moz-background-clip: padding;
+          moz-border-radius: 4px;
+          top: 68px;
+          webkit-background-clip: padding-box;
+          webkit-border-radius: 4px;
+          width: 24px;
+        }
+        #cam-widget #cam-widget-center.disabled
+        {
+          opacity: .2;
+        }
+        #cam-widget #cam-widget-zoom
+        {
+          background-clip: padding-box;
+          border-radius: 8px;
+          font-weight: bold;
+          height: 50px;
+          left: 20px;
+          moz-background-clip: padding;
+          moz-border-radius: 8px;
+          top: 100px;
+          webkit-background-clip: padding-box;
+          webkit-border-radius: 8px;
+          width: 20px;
+        }
+        #cam-widget #cam-widget-help
+        {
+          background-clip: padding-box;
+          border: 1px solid rgba(0,0,0,0.1);
+          border-radius: 8px;
+          color: rgba(0,0,0,0.4);
+          cursor: default;
+          font-weight: bold;
+          height: 16px;
+          khtml-user-select: none;
+          left: 65px;
+          moz-background-clip: padding;
+          moz-border-radius: 8px;
+          moz-user-select: -moz-none;
+          position: absolute;
+          top: -5px;
+          user-select: none;
+          webkit-background-clip: padding-box;
+          webkit-border-radius: 8px;
+          webkit-user-select: none;
+          width: 16px;
+        }
+        #cam-widget #cam-widget-help:hover
+        {
+          background-color: rgba(0,192,255,0.2);
+          border: 1px solid rgba(0,0,0,0.2);
+        }
+        #cam-widget .cam-widget-but
+        {
+          color: #c0c0c0;
+          cursor: default;
+          khtml-user-select: none;
+          moz-user-select: -moz-none;
+          position: absolute;
+          text-align: center;
+          text-shadow: 0 0 2px rgba(0,0,0,0.9);
+          user-select: none;
+          webkit-user-select: none;
+        }
+        #cam-widget .cam-widget-but:hover
+        {
+          color: #fff;
+          cursor: pointer;
+          text-shadow: 0 0 3px #fff;
+        }
+        #cam-widget .cam-widget-but:active
+        {
+          color: #fff;
+          text-shadow: 0 0 8px #fff;
+        }
+        #cam-widget #cam-widget-N
+        {
+          height: 20px;
+          left: 10px;
+          line-height: 20px;
+          top: 0;
+          width: 40px;
+        }
+        #cam-widget #cam-widget-E
+        {
+          height: 40px;
+          left: 40px;
+          line-height: 40px;
+          top: 10px;
+          width: 20px;
+        }
+        #cam-widget #cam-widget-S
+        {
+          height: 20px;
+          left: 10px;
+          line-height: 20px;
+          top: 40px;
+          width: 40px;
+        }
+        #cam-widget #cam-widget-W
+        {
+          height: 40px;
+          left: 0;
+          line-height: 40px;
+          top: 10px;
+          width: 20px;
+        }
+        #cam-widget #cam-widget-C
+        {
+          background-image: url('./resources/editor-toolbar-icons.png');
+          background-position: -494px -14px;
+          height: 20px;
+          left: 20px;
+          line-height: 20px;
+          opacity: .8;
+          top: 20px;
+          width: 20px;
+        }
+        #cam-widget #cam-widget-C:hover
+        {
+          opacity: 1.0;
+        }
+        #cam-widget #cam-widget-CS
+        {
+          background-image: url('/img/editor-toolbar-icons.png');
+          background-position: -444px -12px;
+          height: 24px;
+          line-height: 24px;
+          opacity: .8;
+          width: 24px;
+        }
+        #cam-widget #cam-widget-CS:hover
+        {
+          opacity: 1.0;
+        }
+        #cam-widget #cam-widget-P
+        {
+          border-bottom: 1px solid #000;
+          height: 25px;
+          left: 0;
+          line-height: 25px;
+          top: 0;
+          width: 20px;
+        }
+        #cam-widget #cam-widget-M
+        {
+          height: 25px;
+          left: 0;
+          line-height: 25px;
+          top: 25px;
+          width: 20px;
+        }
+        #cam-widget #cam-widget-H
+        {
+          cursor: default;
+          height: 16px;
+          khtml-user-select: none;
+          left: 0;
+          line-height: 16px;
+          moz-user-select: -moz-none;
+          position: absolute;
+          text-align: center;
+          top: 0;
+          user-select: none;
+          webkit-user-select: none;
+          width: 16px;
+        }
+        #cam-widget #cam-widget-H:hover
+        {
+          color: rgba(0,0,0,0.7);
+        }
+
+    </style>
+
+
+    <!-- Dependencies -->
+    <script src="3rd/jquery-1.7.js"></script>
+
+</head>
+<body>
+
+
+    <div id="sidebar" style="float:right;height:400px;width:45%">
+        <form>
+            <textarea id="stlstring" style="height:400px;width:100%">
+                solid OpenSCAD_Model
+                  facet normal -1.000000 -0.000000 -0.000000
+                    outer loop
+                      vertex -5.000000 -5.000000 0.000000
+                      vertex -5.000000 -5.000000 10.000000
+                      vertex -5.000000 5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal -1.000000 0.000000 0.000000
+                    outer loop
+                      vertex -5.000000 5.000000 0.000000
+                      vertex -5.000000 -5.000000 10.000000
+                      vertex -5.000000 5.000000 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -1.000000 0.000000
+                    outer loop
+                      vertex -5.000000 -5.000000 10.000000
+                      vertex -5.000000 -5.000000 0.000000
+                      vertex 5.000000 -5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -1.000000 0.000000
+                    outer loop
+                      vertex 5.000000 -5.000000 10.000000
+                      vertex -5.000000 -5.000000 10.000000
+                      vertex 5.000000 -5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 -1.000000
+                    outer loop
+                      vertex 1.246980 1.563663 0.000000
+                      vertex -5.000000 5.000000 0.000000
+                      vertex 5.000000 5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 -1.000000
+                    outer loop
+                      vertex -5.000000 -5.000000 0.000000
+                      vertex -5.000000 5.000000 0.000000
+                      vertex -1.801938 0.867767 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 -1.000000
+                    outer loop
+                      vertex -5.000000 -5.000000 0.000000
+                      vertex -1.801938 0.867767 0.000000
+                      vertex -1.801938 -0.867767 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 -1.000000
+                    outer loop
+                      vertex -5.000000 -5.000000 0.000000
+                      vertex -1.801938 -0.867767 0.000000
+                      vertex -0.445042 -1.949856 0.000000
+                    endloop
+                  endfacet
+                  facet normal -0.000000 0.000000 -1.000000
+                    outer loop
+                      vertex -5.000000 -5.000000 0.000000
+                      vertex -0.445042 -1.949856 0.000000
+                      vertex 5.000000 -5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 -1.000000
+                    outer loop
+                      vertex 1.246980 -1.563663 0.000000
+                      vertex 5.000000 -5.000000 0.000000
+                      vertex -0.445042 -1.949856 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 -1.000000
+                    outer loop
+                      vertex 2.000000 0.000000 0.000000
+                      vertex 5.000000 -5.000000 0.000000
+                      vertex 1.246980 -1.563663 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 -1.000000
+                    outer loop
+                      vertex 5.000000 -5.000000 0.000000
+                      vertex 2.000000 0.000000 0.000000
+                      vertex 5.000000 5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal -0.000000 -0.000000 -1.000000
+                    outer loop
+                      vertex -0.445042 1.949856 0.000000
+                      vertex -5.000000 5.000000 0.000000
+                      vertex 1.246980 1.563663 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 -1.000000
+                    outer loop
+                      vertex 2.000000 0.000000 0.000000
+                      vertex 1.246980 1.563663 0.000000
+                      vertex 5.000000 5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 -1.000000
+                    outer loop
+                      vertex -1.801938 0.867767 0.000000
+                      vertex -5.000000 5.000000 0.000000
+                      vertex -0.445042 1.949856 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 1.000000 0.000000
+                    outer loop
+                      vertex -5.000000 5.000000 0.000000
+                      vertex -5.000000 5.000000 10.000000
+                      vertex 5.000000 5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 1.000000 0.000000
+                    outer loop
+                      vertex 5.000000 5.000000 0.000000
+                      vertex -5.000000 5.000000 10.000000
+                      vertex 5.000000 5.000000 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 1.000000
+                    outer loop
+                      vertex -0.445042 -1.949856 10.000000
+                      vertex -5.000000 -5.000000 10.000000
+                      vertex 5.000000 -5.000000 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 1.000000
+                    outer loop
+                      vertex -5.000000 5.000000 10.000000
+                      vertex -5.000000 -5.000000 10.000000
+                      vertex -1.801938 -0.867767 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 1.000000
+                    outer loop
+                      vertex -5.000000 5.000000 10.000000
+                      vertex -1.801938 -0.867767 10.000000
+                      vertex -1.801938 0.867767 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 1.000000
+                    outer loop
+                      vertex 5.000000 5.000000 10.000000
+                      vertex -5.000000 5.000000 10.000000
+                      vertex -0.445042 1.949856 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 1.000000
+                    outer loop
+                      vertex 5.000000 5.000000 10.000000
+                      vertex 1.246980 1.563663 10.000000
+                      vertex 5.000000 -5.000000 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 1.000000
+                    outer loop
+                      vertex 5.000000 5.000000 10.000000
+                      vertex -0.445042 1.949856 10.000000
+                      vertex 1.246980 1.563663 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 1.000000
+                    outer loop
+                      vertex 1.246980 1.563663 10.000000
+                      vertex 2.000000 0.000000 10.000000
+                      vertex 5.000000 -5.000000 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 1.000000
+                    outer loop
+                      vertex 2.000000 0.000000 10.000000
+                      vertex 1.246980 -1.563663 10.000000
+                      vertex 5.000000 -5.000000 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 1.000000
+                    outer loop
+                      vertex 1.246980 -1.563663 10.000000
+                      vertex -0.445042 -1.949856 10.000000
+                      vertex 5.000000 -5.000000 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 -0.000000 1.000000
+                    outer loop
+                      vertex -1.801938 -0.867767 10.000000
+                      vertex -5.000000 -5.000000 10.000000
+                      vertex -0.445042 -1.949856 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.000000 0.000000 1.000000
+                    outer loop
+                      vertex -1.801938 0.867767 10.000000
+                      vertex -0.445042 1.949856 10.000000
+                      vertex -5.000000 5.000000 10.000000
+                    endloop
+                  endfacet
+
+                  facet normal 1.000000 0.000000 -0.000000
+                    outer loop
+                      vertex 5.000000 -5.000000 10.000000
+                      vertex 5.000000 -5.000000 0.000000
+                      vertex 5.000000 5.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal 1.000000 0.000000 0.000000
+                    outer loop
+                      vertex 5.000000 5.000000 10.000000
+                      vertex 5.000000 -5.000000 10.000000
+                      vertex 5.000000 5.000000 0.000000
+                    endloop
+                  endfacet
+
+
+
+
+                  facet normal 1.000000 0.000000 0.000000
+                    outer loop
+                      vertex -1.801938 0.867767 0.000000
+                      vertex -1.801938 0.867767 10.000000
+                      vertex -1.801938 -0.867767 10.000000
+                    endloop
+                  endfacet
+                  facet normal 1.000000 0.000000 0.000000
+                    outer loop
+                      vertex -1.801938 -0.867767 0.000000
+                      vertex -1.801938 0.867767 0.000000
+                      vertex -1.801938 -0.867767 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.623490 -0.781831 0.000000
+                    outer loop
+                      vertex -0.445042 1.949856 0.000000
+                      vertex -0.445042 1.949856 10.000000
+                      vertex -1.801938 0.867767 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.623490 -0.781831 0.000000
+                    outer loop
+                      vertex -1.801938 0.867767 0.000000
+                      vertex -0.445042 1.949856 0.000000
+                      vertex -1.801938 0.867767 10.000000
+                    endloop
+                  endfacet
+                  facet normal -0.222521 -0.974928 -0.000000
+                    outer loop
+                      vertex 1.246980 1.563663 0.000000
+                      vertex 1.246980 1.563663 10.000000
+                      vertex -0.445042 1.949856 10.000000
+                    endloop
+                  endfacet
+                  facet normal -0.222521 -0.974928 -0.000000
+                    outer loop
+                      vertex -0.445042 1.949856 0.000000
+                      vertex 1.246980 1.563663 0.000000
+                      vertex -0.445042 1.949856 10.000000
+                    endloop
+                  endfacet
+                  facet normal -0.900969 -0.433884 0.000000
+                    outer loop
+                      vertex 2.000000 0.000000 10.000000
+                      vertex 1.246980 1.563663 10.000000
+                      vertex 2.000000 0.000000 0.000000
+                    endloop
+                  endfacet
+                  facet normal -0.900969 -0.433884 0.000000
+                    outer loop
+                      vertex 2.000000 0.000000 0.000000
+                      vertex 1.246980 1.563663 10.000000
+                      vertex 1.246980 1.563663 0.000000
+                    endloop
+                  endfacet
+                  facet normal -0.900969 0.433884 0.000000
+                    outer loop
+                      vertex 2.000000 0.000000 10.000000
+                      vertex 2.000000 0.000000 0.000000
+                      vertex 1.246980 -1.563663 10.000000
+                    endloop
+                  endfacet
+                  facet normal -0.900969 0.433884 0.000000
+                    outer loop
+                      vertex 1.246980 -1.563663 10.000000
+                      vertex 2.000000 0.000000 0.000000
+                      vertex 1.246980 -1.563663 0.000000
+                    endloop
+                  endfacet
+                  facet normal -0.222521 0.974928 0.000000
+                    outer loop
+                      vertex 1.246980 -1.563663 10.000000
+                      vertex 1.246980 -1.563663 0.000000
+                      vertex -0.445042 -1.949856 10.000000
+                    endloop
+                  endfacet
+                  facet normal -0.222521 0.974928 0.000000
+                    outer loop
+                      vertex -0.445042 -1.949856 10.000000
+                      vertex 1.246980 -1.563663 0.000000
+                      vertex -0.445042 -1.949856 0.000000
+                    endloop
+                  endfacet
+                  facet normal 0.623490 0.781831 -0.000000
+                    outer loop
+                      vertex -0.445042 -1.949856 10.000000
+                      vertex -0.445042 -1.949856 0.000000
+                      vertex -1.801938 -0.867767 10.000000
+                    endloop
+                  endfacet
+                  facet normal 0.623490 0.781831 -0.000000
+                    outer loop
+                      vertex -1.801938 -0.867767 10.000000
+                      vertex -0.445042 -1.949856 0.000000
+                      vertex -1.801938 -0.867767 0.000000
+                    endloop
+                  endfacet
+                endsolid OpenSCAD_Model
+            </textarea>
+            <input type="button" value="Load" onclick="sceneview.loadStlString(document.getElementById('stlstring').value);" style="float:left;">
+        </form>
+    </div>
+
+   <div id="viewer" style="width:50%;height:400px;float:left"></div>
+    <!-- Graphics Viewer -->
+    <div id="viewer" style="width:100%;height:400px"></div>
+    <div id="cam-widget" style="left:20px; top:20px;">
+        <div id="cam-widget-rot" class="cam-widget-body">
+            <div id="cam-widget-N" class="cam-widget-but"><small>&#9650;</small></div>
+            <div id="cam-widget-S" class="cam-widget-but"><small>&#9660;</small></div>
+            <div id="cam-widget-E" class="cam-widget-but"><small>&#9654;</small></div>
+            <div id="cam-widget-W" class="cam-widget-but"><small>&#9664;</small></div>
+            <div id="cam-widget-C" class="cam-widget-but"></div>
+        </div>
+        <div id="cam-widget-zoom" class="cam-widget-body" style="top:70px;">
+      <div id="cam-widget-P" class="cam-widget-but">+</div>
+      <div id="cam-widget-M" class="cam-widget-but">-</div>
+        </div>
+    </div>
+</div>
+
+    <!--
+
+    <p>
+        <input onclick="sceneview.setCameraView('top');" type="button" value="Top" />
+        <input onclick="sceneview.setCameraView('side');" type="button" value="Side" />
+        <input onclick="sceneview.setCameraView('bottom');" type="button" value="Bottom" />
+        <input onclick="sceneview.setCameraView('diagonal');" type="button" value="Diagonal" />
+
+        <input onclick="sceneview.setCameraZoom(5);" type="button" value="Zoom +" />
+        <input onclick="sceneview.setCameraZoom(-5);" type="button" value="Zoom -" />
+
+        Rotation: <input onclick="sceneview.setRotation(true);" type="button" value="on" /> | <input onclick="sceneview.setRotation(false);" type="button" value="off" />
+    </p>
+
+
+
+    <p>
+        <input onclick="sceneview.setObjectMaterial('wireframe');" type="button" value="Wireframe" />
+        <input onclick="sceneview.setObjectMaterial('solid');" type="button" value="Solid" />
+    </p>
+
+    <p>
+        Plane:
+        <a href="#" onclick="sceneview.setShowPlane(false)">Hide</a> | <a href="#" onclick="sceneview.setShowPlane(true)">Show</a>
+        <br/>
+        Background Color: <a href="#" onclick="sceneview.setBackgroundColor('#606060')">Gray</a> | <a href="#" onclick="sceneview.setBackgroundColor('#ffffff')">White</a> | <a href="#" onclick="sceneview.setBackgroundColor('#000000')">Black</a>
+        <br/>
+        Object Color: <a href="#" onclick="sceneview.setObjectColor('#ffffff')">White</a> | <a href="#" onclick="sceneview.setObjectColor('#aa0000')">Red</a> | <a href="#" onclick="sceneview.setObjectColor('#CDFECD')">Green</a> | <a href="#" onclick="sceneview.setObjectColor('#C0D8F0')">Blue</a>
+        <br/>
+    </p>
+    -->
+
+
+    <script src="3rd/require.js" data-main="main"></script>
+
+</body>
+</html>
