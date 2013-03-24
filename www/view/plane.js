@@ -11,13 +11,14 @@ function Plane ( width, height, segments_width, segments_height ) {
 
     THREE.Geometry.call( this );
 
-    var ix, iy,
-        width_half = width / 2,
-        height_half = height / 2,
-        gridX       = segments_width || 1,
-        gridY = segments_height || 1,
-        gridX1 = gridX + 1,
-        gridY1 = gridY + 1,
+    var ix,
+        iy,
+        width_half    = width / 2,
+        height_half   = height / 2,
+        gridX         = segments_width || 1,
+        gridY         = segments_height || 1,
+        gridX1        = gridX + 1,
+        gridY1        = gridY + 1,
         segmentWidth  = width / gridX,
         segmentHeight = height / gridY;
 
@@ -25,8 +26,8 @@ function Plane ( width, height, segments_width, segments_height ) {
 
         for( ix = 0; ix < gridX1; ix++ ) {
 
-            var x = ix * segmentWidth - width_half;
-            var y = iy * segmentHeight - height_half;
+            var x = ix * segmentWidth - width_half,
+                y = iy * segmentHeight - height_half;
 
             this.vertices.push( new THREE.Vertex( new THREE.Vector3( x, - y, 0 ) ) );
         }
@@ -37,10 +38,10 @@ function Plane ( width, height, segments_width, segments_height ) {
 
         for( ix = 0; ix < gridX; ix++ ) {
 
-            var a = ix + gridX1 * iy;
-            var b = ix + gridX1 * ( iy + 1 );
-            var c = ( ix + 1 ) + gridX1 * ( iy + 1 );
-            var d = ( ix + 1 ) + gridX1 * iy;
+            var a = ix + gridX1 * iy,
+                b = ix + gridX1 * ( iy + 1 ),
+                c = ( ix + 1 ) + gridX1 * ( iy + 1 ),
+                d = ( ix + 1 ) + gridX1 * iy;
 
             this.faces.push( new THREE.Face4( a, b, c, d ) );
             this.uvs.push( [
@@ -57,7 +58,7 @@ function Plane ( width, height, segments_width, segments_height ) {
     this.computeCentroids();
     this.computeFaceNormals();
     this.sortFacesByMaterial();
-};
+}
 
 Plane.prototype = new THREE.Geometry();
 Plane.prototype.constructor = Plane;

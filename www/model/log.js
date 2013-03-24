@@ -16,13 +16,13 @@ function info(message) {
             log('INFO: ' + message);
             break;
     }
-};
+}
 
 function debug(message) {
     if (this.level === 'debug') {
         log('DEBUG: ' + message);
     }
-};
+}
 
 //Exports Symbols
 exports.level = 'info';

@@ -17,18 +17,23 @@ require("3rd/three.min.r32");
 // http://www.chris-granger.com/lighttable/
 
 
-// Prequisition Checking
-function _checkPrequisition() {
+/**
+* Dependency Checking
+*/
+function _checkDependencies() {
 
-    var dependencies = { "RequireJS": window.require};
-    var key, allOK = true;
+    var key,
+        missed       = false,
+        dependencies = { "RequireJS": window.require, "jQuery": window.$ };
+
     for (key in dependencies) {
         if (!dependencies[key]) {
-            allOK = false;
+            missed = true;
             break;
         }
     }
-    if (allOK) {
+
+    if (!missed) {
         return true;
     }
 
@@ -48,42 +53,42 @@ function _checkPrequisition() {
 
 function _setupCamTool() {
 
-        // Zoom in
-       $("#cam-widget-P").click(function() {
-            sceneview.setCameraZoom(5);
-        });
+    // Zoom in
+   $("#cam-widget-P").click(function() {
+        sceneview.setCameraZoom(5);
+    });
 
-       // zoom out
-        $("#cam-widget-M").click(function() {
-            sceneview.setCameraZoom(-5);
-        });
+    // zoom out
+    $("#cam-widget-M").click(function() {
+        sceneview.setCameraZoom(-5);
+    });
 
-        // East
-        $("#cam-widget-E").click(function() {
-            sceneview.setCameraView('side');
-        });
+    // East
+    $("#cam-widget-E").click(function() {
+        sceneview.setCameraView('side');
+    });
 
-        // West
-        $("#cam-widget-W").click(function() {
-            sceneview.setCameraView('side');
-        });
+    // West
+    $("#cam-widget-W").click(function() {
+        sceneview.setCameraView('leftside');
+    });
 
-        // South
-        $("#cam-widget-S").click(function() {
-            sceneview.setCameraView('bottom');
-        });
+    // South
+    $("#cam-widget-S").click(function() {
+        sceneview.setCameraView('bottom');
+    });
 
-        // North
-        $("#cam-widget-N").click(function() {
-            sceneview.setCameraView('top');
-        });
+    // North
+    $("#cam-widget-N").click(function() {
+        sceneview.setCameraView('top');
+    });
 
-        // Rest view location
-        $("#cam-widget-C").click(function() {
-            sceneview.setCameraView('diagonal');
-        });
+    // Rest view location
+    $("#cam-widget-C").click(function() {
+        sceneview.setCameraView('diagonal');
+    });
 
-        /*
+    /*
         // Fit view to selections
         $("#cam-widget-CS").click(function() {
             a.Hi();
@@ -102,28 +107,31 @@ function _setupCamTool() {
             $("#cam-help-bubble").fadeOut(100);
             return n
         });
-*/
+    */
 }
 
 function _onReady() {
 
     var SceneView = require("view/sceneview").SceneView;
 
+    // Create Scene View
+	// Currently, let's global object to make things simple.
     window.sceneview = new SceneView("viewer");
     sceneview.setObjectColor('#C0D8F0');
     sceneview.initScene();
-    // sceneview.setShowPlane(true);
     sceneview.loadStlString(document.getElementById('stlstring').value);
 
-
-    _setupCamTool()
+    // Add Camera Tools
+    _setupCamTool();
 }
 
 
-if(_checkPrequisition()) {
+!function() {
+    if(_checkDependencies()) {
+        // Once DOM is loaded successfully, let's start loading the model to viewer.
+        $(window.document).ready(_onReady);
+    }
+}();
 
-    // If DOM is loaded succefully, let's start loading the model to viewer.
-    $(window.document).ready(_onReady);
-}
 
 });

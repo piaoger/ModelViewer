@@ -1,4 +1,6 @@
 ﻿
+(function () {
+"use strict";
 
 var npm = require('npm');
 
@@ -105,7 +107,7 @@ function _startWebServer() {
 
     var routes = JSON.parse(fs.readFileSync('router.json','utf8'));
     for(var route in routes){
-       // startRouter(route);
+       startRouter(route);
     }
 
     // Start the HTTP Server
@@ -125,6 +127,8 @@ function _startWebServer() {
 *   WebServer is setup and started automatically.
 */
 function _startup() {
+    var utils = require('../utils.js');
+    console.log(utils.getSomething());
     _startWebServer();
 }
 
@@ -138,4 +142,6 @@ function _startup() {
     });
 }();
 
+
+}());
 

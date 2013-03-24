@@ -1,4 +1,5 @@
 
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, unused:true, curly:true, browser:true, indent:4, maxerr:50 */
 
 define(function (require, exports, module) {
 //"use strict";
@@ -8,22 +9,25 @@ define(function (require, exports, module) {
 */
 function SceneView(containerId) {
 
+    var StlGeometry = require("model/stlgeometry").StlGeometry;
+        log         = require('model/log').log;
+
     var scope = this;
 
-    this.containerId  = containerId;
-    var container     = document.getElementById(containerId);
+
+    var container = document.getElementById(containerId);
 
     // var stats = null;
 
-    var camera   = null;
-    var scene    = null;
-    var renderer = null;
-    var object   = null;
-    var plane    = null;
+    var camera   = null,
+        scene    = null,
+        renderer = null,
+        object   = null,
+        plane    = null;
 
-    var ambientLight     = null;
-    var directionalLight = null;
-    var pointLight       = null;
+    var ambientLight     = null,
+        directionalLight = null,
+        pointLight       = null;
 
     var targetXRotation             = 0;
     var targetXRotationOnMouseDown  = 0;
@@ -35,8 +39,8 @@ function SceneView(containerId) {
     var mouseY                      = 0;
     var mouseYOnMouseDown           = 0;
 
-    var mouseDown                  = false;
-    var mouseOver                  = false;
+    var mouseDown                  = false,
+        mouseOver                  = false;
 
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2
@@ -59,7 +63,7 @@ function SceneView(containerId) {
     var objectMaterial = 'solid';
     var objectColor = 0xffffff;
     var showPlane = true;
-    var isWebGl = false;
+    var useWebGl = false;
 
     var geometry;
 
@@ -67,6 +71,10 @@ function SceneView(containerId) {
 
     var width = 0;
     var height = 0;
+
+    this.containerId  = containerId;
+
+    // Set Viewer size
     if (document.defaultView && document.defaultView.getComputedStyle) {
 
         width  = parseFloat(document.defaultView.getComputedStyle(container,null).getPropertyValue('width'));
@@ -76,9 +84,6 @@ function SceneView(containerId) {
         height = parseFloat(container.currentStyle.height);
     }
 
-
-    var StlGeometry = require("model/stlgeometry").StlGeometry;
-    var log = require('model/log').log;
 
     this.initScene = function() {
 
@@ -139,11 +144,13 @@ function SceneView(containerId) {
         this.setCameraView(cameraView);
         this.setObjectMaterial(objectMaterial);
 
+        // Create Render based on browser support.
+        // If no WebGL support, just uses Canvas Renderer.
         var testCanvas = document.createElement('canvas');
         try {
             if (testCanvas.getContext('experimental-webgl')) {
                 // showPlane = false;
-                isWebGl = true;
+                useWebGl = true;
                 renderer = new THREE.WebGLRenderer();
                 // renderer = new THREE.CanvasRenderer();
             } else {
@@ -184,7 +191,7 @@ function SceneView(containerId) {
         renderer.domElement.addEventListener('DOMMouseScroll', onRendererScroll,        false);
         renderer.domElement.addEventListener('mousewheel',     onRendererScroll,        false);
         renderer.domElement.addEventListener('gesturechange',  onRendererGestureChange, false);
-    }
+    };
 
     // FIXME
     // onContainerResize = function(event) {
@@ -220,7 +227,7 @@ function SceneView(containerId) {
             // down
             scope.setCameraZoom(-10);
         }
-    }
+    };
 
     var onRendererGestureChange = function(event) {
         event.preventDefault();
@@ -230,7 +237,7 @@ function SceneView(containerId) {
         } else {
             scope.setCameraZoom(-5);
         }
-    }
+    };
 
     var onRendererMouseOver = function(event) {
         mouseOver = true;
@@ -239,7 +246,7 @@ function SceneView(containerId) {
             // log('starting loop');
             timer = setInterval(sceneLoop, 1000/60);
         }
-    }
+    };
 
     var onRendererMouseDown = function(event) {
         // log("down");
@@ -259,7 +266,7 @@ function SceneView(containerId) {
 
         targetXRotationOnMouseDown = targetXRotation;
         targetYRotationOnMouseDown = targetYRotation;
-    }
+    };
 
     var onRendererMouseMove = function(event) {
         // log("move");
@@ -276,7 +283,7 @@ function SceneView(containerId) {
             targetXRotation = xrot;
             targetYRotation = yrot;
         }
-    }
+    };
 
     var onRendererMouseUp = function(event) {
         // log("up");
@@ -292,7 +299,7 @@ function SceneView(containerId) {
                 scope.setRotation(true);
             }
         }
-    }
+    };
 
     var onRendererMouseOut = function(event) {
         if (!mouseDown) {
@@ -300,7 +307,7 @@ function SceneView(containerId) {
             timer = null;
         }
         mouseOver = false;
-    }
+    };
 
     var onRendererTouchStart = function(event) {
         targetXRotation = object.rotation.z;
@@ -317,14 +324,14 @@ function SceneView(containerId) {
             mouseYOnMouseDown = event.touches[0].pageY - windowHalfY;
             targetYRotationOnMouseDown = targetYRotation;
         }
-    }
+    };
 
     var onRendererTouchEnd = function(event) {
         clearInterval(timer);
         timer = null;
         // targetXRotation = object.rotation.z;
         // targetYRotation = object.rotation.x;
-    }
+    };
 
     var onRendererTouchMove = function(event) {
         if (event.touches.length == 1) {
@@ -336,7 +343,7 @@ function SceneView(containerId) {
             mouseY = event.touches[0].pageY - windowHalfY;
             targetYRotation = targetYRotationOnMouseDown + (mouseY - mouseYOnMouseDown) * 0.05;
         }
-    }
+    };
 
     var sceneLoop = function() {
         if (object) {
@@ -374,17 +381,17 @@ function SceneView(containerId) {
             renderer.render(scene, camera);
             // stats.update();
         }
-    }
+    };
 
     var rotateLoop = function() {
         // targetRotation += 0.01;
         targetXRotation += 0.05;
         sceneLoop();
-    }
+    };
 
     this.getShowPlane = function(){
         return showPlane;
-    }
+    };
 
     this.setShowPlane = function(show) {
         showPlane = show;
@@ -404,11 +411,11 @@ function SceneView(containerId) {
         }
 
         sceneLoop();
-    }
+    };
 
     this.getRotation = function() {
         return rotateTimer !== null;
-    }
+    };
 
     this.setRotation = function(rotate) {
         rotation = rotate;
@@ -421,7 +428,7 @@ function SceneView(containerId) {
         }
 
         scope.onSetRotation();
-    }
+    };
 
     this.onSetRotation = function(callback) {
         if(callback === undefined){
@@ -435,7 +442,7 @@ function SceneView(containerId) {
         } else {
             rotateListener = callback;
         }
-    }
+    };
 
     this.setCameraView = function(dir) {
         cameraView = dir;
@@ -470,6 +477,14 @@ function SceneView(containerId) {
             if (showPlane) {
                 plane.flipSided = false;
             }
+        } else if (dir == 'leftside') {
+                        // camera.position.y = -70;
+            // camera.position.z = 70;
+            // camera.target.position.z = 0;
+            targetYRotation = 4.5;
+            if (showPlane) {
+                plane.flipSided = false;
+            }
         } else if (dir == 'bottom') {
             // camera.position.y = 0;
             // camera.position.z = -100;
@@ -495,7 +510,7 @@ function SceneView(containerId) {
         scope.centerCamera();
 
         sceneLoop();
-    }
+    };
 
     this.setCameraZoom = function(factor) {
         cameraZoom = factor;
@@ -514,7 +529,7 @@ function SceneView(containerId) {
             camera.position.z -= factor;
         } else if (cameraView == 'bottom') {
             camera.position.z += factor;
-        } else if (cameraView == 'side') {
+        } else if (cameraView == 'side' || cameraView == 'leftside') {
             camera.position.y += factor;
             camera.position.z -= factor;
         } else {
@@ -523,16 +538,16 @@ function SceneView(containerId) {
         }
 
         sceneLoop();
-    }
+    };
 
     this.getObjectMaterial = function() {
         return objectMaterial;
-    }
+    };
 
     this.setObjectMaterial = function(type) {
         objectMaterial = type;
         loadObjectGeometry();
-    }
+    };
 
     this.setBackgroundColor = function(color) {
         backgroundColor = color
@@ -540,48 +555,48 @@ function SceneView(containerId) {
         if (renderer) {
             renderer.domElement.style.backgroundColor = color;
         }
-    }
+    };
 
     this.setObjectColor = function(color) {
         objectColor = parseInt(color.replace(/\#/g, ''), 16);
         loadObjectGeometry();
-    }
+    };
 
     this.loadSTL = function(url) {
         scope.startLoadModelWorker('loadSTL', url);
-    }
+    };
 
     this.loadOBJ = function(url) {
         scope.startLoadModelWorker('loadOBJ', url);
-    }
+    };
 
     this.loadStlString = function(STLString) {
         scope.startLoadModelWorker('loadStlString', STLString);
-    }
+    };
 
     this.loadStlBinary = function(STLBinary) {
         scope.startLoadModelWorker('loadStlBinary', STLBinary);
-    }
+    };
 
     this.loadObjString = function(OBJString) {
         scope.startLoadModelWorker('loadObjString', OBJString);
-    }
+    };
 
     this.loadJSON = function(url) {
         scope.startLoadModelWorker('loadJSON', url);
-    }
+    };
 
     this.loadPLY = function(url) {
         scope.startLoadModelWorker('loadPLY', url);
-    }
+    };
 
     this.loadPlyString = function(plyString) {
         scope.startLoadModelWorker('loadPlyString', plyString);
-    }
+    };
 
     this.loadPlyBinary = function(plyBinary) {
         scope.startLoadModelWorker('loadPlyBinary', plyBinary);
-    }
+    };
 
     this.centerCamera = function() {
         if (geometry) {
@@ -619,7 +634,7 @@ function SceneView(containerId) {
             camera.position.z = 70;
             camera.target.position.z = 0;
         }
-    }
+    };
 
     this.loadArray = function(array) {
         log("loading array...");
@@ -629,7 +644,7 @@ function SceneView(containerId) {
         scope.setRotation(true);
         scope.centerCamera();
         log("finished loading " + geometry.faces.length + " faces.");
-    }
+    };
 
 
     this.startLoadModelWorker = function(cmd, param) {
@@ -702,22 +717,23 @@ function SceneView(containerId) {
                 alert('Error: ' + event.data);
                 scope.log('Unknown Worker Message: ' + event.data);
             }
-        }
+        };
 
         worker.onerror = function(error) {
             scope.log(error);
             error.preventDefault();
-        }
-    }
+        };
+    };
 
     this.displayAlert = function(msg) {
-        msg = msg + "<br/><br/><center><input type=\"button\" value=\"Ok\" onclick=\"document.getElementById('alertBox').style.display='none'\"></center>"
+        msg = msg +
+        "<br/><br/><center><input type=\"button\" value=\"Ok\" onclick=\"document.getElementById('alertBox').style.display='none'\"></center>";
 
         alertBox.innerHTML = msg;
         alertBox.style.display = 'block';
 
         // log(msg);
-    }
+    };
 
     function loadPlaneGeometry() {
         // TODO: switch to lines instead of the Plane object so we can get rid of the horizontal lines in canvas renderer...
@@ -732,7 +748,7 @@ function SceneView(containerId) {
                 // material = new THREE.MeshColorStrokeMaterial(objectColor, 1, 1);
                 material = new THREE.MeshBasicMaterial({color:objectColor,wireframe:true});
             } else {
-              if (isWebGl) {
+              if (useWebGl) {
                 // material = new THREE.MeshPhongMaterial(objectColor, objectColor, 0xffffff, 50, 1.0);
                 // material = new THREE.MeshColorFillMaterial(objectColor);
                 // material = new THREE.MeshLambertMaterial({color:objectColor});

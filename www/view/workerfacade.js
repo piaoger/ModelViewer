@@ -66,7 +66,7 @@ function WorkerFacade()  {
                 };
             };
             that.toString = function(){
-                return "FakeWorker('"+path+"')";
+                return "FakeWorker('" + path + "')";
             };
             return that;
         }());

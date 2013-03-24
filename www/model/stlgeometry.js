@@ -1,13 +1,13 @@
 
 
 define(function(require, exports, module) {
-"use constrcts"
+"use strict";
 
 function StlGeometry(stlArray) {
 
     THREE.Geometry.call(this);
 
-    var log = require('model/log').log
+    var log = require('model/log').log;
     log("building geometry...");
 
     var scope = this;

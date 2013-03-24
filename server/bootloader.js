@@ -4,9 +4,10 @@
 * by Fire up npm and run the command by using NPM Programmatically
 */
 
-var child_process = require('child_process'),
-    npm           = require('npm');
+(function () {
+"use strict";
 
+var child_process = require('child_process');
 
 /**
 * Check if it's still in staging.
@@ -109,9 +110,9 @@ function _startRunner(runner) {
         var args    = [],
             options = { cwd: undefined,
                         env: process.env
-                    };
+                };
         args.push(runner);
-        _run(args);
+        _run(args, options);
     } else {
         _runRestartable(runner);
     }
@@ -141,3 +142,5 @@ function _bootup() {
 !function(){
     _bootup();
 }();
+
+}());

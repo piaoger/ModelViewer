@@ -1,6 +1,7 @@
 
 
-// How to build web Weker with require.js
+// It's also an good example about How to build web Weker with require.js
+
 importScripts('../3rd/require.js');
 
 
@@ -12,6 +13,8 @@ require(
 
     function(modelloader) {
 
+        'use strict';
+
         if (typeof(window) === "undefined") {
 
             if(modelloader) {
@@ -20,7 +23,7 @@ require(
 
                 onmessage = function(event)    {
                     modelloader.ModelLoader(event);
-                }
+                };
 
                 // Tells host that this worker is initialized successfully.
                 // It's ready for loading model now.

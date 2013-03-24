@@ -3,6 +3,10 @@
 define(function (require, exports, module) {
 "use strict";
 
+// TODO(Piaoger): Switch to jDataView later.
+// Vjeux said that BinaryReader is buggy and no longer maintained.
+// Check out jDataView for an up to date version
+//     https://github.com/vjeux/jDataView
 
 // BinaryReader
 // Refactored by Vjeux <vjeuxx@gmail.com>
