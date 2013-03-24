@@ -36,16 +36,16 @@ if %SMCP_CPU_ARCH%==x86 (
 :: Set path for Node executale and node-inspector
 set path=%path%;%SMCP_NODE_PATH%;%SMCP_NODE_PATH%\bin
 
-
 cd /d %SMCP_ROOT%\server
 
 :: Set up settings for Node.js runtime
 set NODE_PATH=%SMCP_ROOT%\server
 set NODE_ENV=development
 
-:: Using NPM to start up application.
-:: Make sure all Node.js dependencies are installed.
-call npm install
-call npm start
+:: Install node-inspector globally.
+call npm install -g node-inspector
 
-pause
+:: Using node-inspector
+start node-inspector -web-port=9100
+
+start %localappdata%\Google\Chrome\Application\chrome.exe http://localhost:8080/debug?port=5858
