@@ -245,9 +245,6 @@ function ModelLoader(event) {
 
         postWorkerFacadeMessage({'status':'message', 'content':stlString});
 
-
-        // console.log(stlString);
-
         var facet_count = 0;
         var block_start = 0;
 
@@ -281,8 +278,8 @@ function ModelLoader(event) {
     };
 
     this.parseObjString = function(objString) {
-        var vertexes  = [];
-        var faces     = [];
+        var vertexes = [];
+        var faces    = [];
 
         var lines = objString.split("\n");
 

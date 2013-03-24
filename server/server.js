@@ -127,7 +127,7 @@ function _startWebServer() {
 *   WebServer is setup and started automatically.
 */
 function _startup() {
-    var utils = require('../utils.js');
+    var utils = require('utils.js');
     console.log(utils.getSomething());
     _startWebServer();
 }

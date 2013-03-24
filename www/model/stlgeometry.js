@@ -12,10 +12,6 @@ function StlGeometry(stlArray) {
 
     var scope = this;
 
-    // var vertexes = stlArray[0];
-    // var normals  = stlArray[1];
-    // var faces    = stlArray[2];
-
     for (var i=0; i<stlArray[0].length; i++) {
         v(stlArray[0][i][0], stlArray[0][i][1], stlArray[0][i][2]);
     }

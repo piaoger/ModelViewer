@@ -72,7 +72,6 @@ function WorkerFacade()  {
         }());
     }
 
-
     return workerFacade;
 }
 

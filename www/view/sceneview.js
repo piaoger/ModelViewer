@@ -29,18 +29,18 @@ function SceneView(containerId) {
         directionalLight = null,
         pointLight       = null;
 
-    var targetXRotation             = 0;
-    var targetXRotationOnMouseDown  = 0;
-    var mouseX                      = 0;
-    var mouseXOnMouseDown           = 0;
+    var targetXRotation             = 0,
+        targetXRotationOnMouseDown  = 0,
+        mouseX                      = 0,
+        mouseXOnMouseDown           = 0;
 
-    var targetYRotation             = 0;
-    var targetYRotationOnMouseDown  = 0;
-    var mouseY                      = 0;
-    var mouseYOnMouseDown           = 0;
+    var targetYRotation             = 0,
+        targetYRotationOnMouseDown  = 0,
+        mouseY                      = 0,
+        mouseYOnMouseDown           = 0;
 
-    var mouseDown                  = false,
-        mouseOver                  = false;
+    var mouseDown                   = false,
+        mouseOver                   = false;
 
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2
@@ -76,7 +76,6 @@ function SceneView(containerId) {
 
     // Set Viewer size
     if (document.defaultView && document.defaultView.getComputedStyle) {
-
         width  = parseFloat(document.defaultView.getComputedStyle(container,null).getPropertyValue('width'));
         height = parseFloat(document.defaultView.getComputedStyle(container,null).getPropertyValue('height'));
     } else {
@@ -88,7 +87,7 @@ function SceneView(containerId) {
     this.initScene = function() {
 
         container.style.position = 'relative';
-        container.innerHTML      = '';
+        container.innerHTML = '';
 
         camera = new THREE.Camera(45, width/ height, 1, 100000);
         camera.updateMatrix();
@@ -176,13 +175,14 @@ function SceneView(containerId) {
         // window.addEventListener('resize', onContainerResize(), false);
         // container.addEventListener('resize', onContainerResize(), false);
 
-        // renderer.domElement.addEventListener('mousemove',      onRendererMouseMove,     false);
         window.addEventListener('mousemove',      onRendererMouseMove,     false);
+        window.addEventListener('mouseup',        onRendererMouseUp,       false);
+
+        // renderer.domElement.addEventListener('mousemove',      onRendererMouseMove,     false);        
         renderer.domElement.addEventListener('mouseover',      onRendererMouseOver,     false);
         renderer.domElement.addEventListener('mouseout',       onRendererMouseOut,      false);
         renderer.domElement.addEventListener('mousedown',      onRendererMouseDown,     false);
         // renderer.domElement.addEventListener('mouseup',        onRendererMouseUp,       false);
-        window.addEventListener('mouseup',        onRendererMouseUp,       false);
 
         renderer.domElement.addEventListener('touchstart',     onRendererTouchStart,    false);
         renderer.domElement.addEventListener('touchend',       onRendererTouchEnd,      false);
@@ -447,8 +447,8 @@ function SceneView(containerId) {
     this.setCameraView = function(dir) {
         cameraView = dir;
 
-        targetXRotation       = 0;
-        targetYRotation       = 0;
+        targetXRotation = 0;
+        targetYRotation = 0;
 
         if (object) {
             object.rotation.x = 0;

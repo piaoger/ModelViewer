@@ -73,7 +73,7 @@ function _runRestartable(runner) {
                     max: 36,
                     silent: true,
                     options: []
-                });
+            });
 
     monitor.on('restart', function () {
         console.log("Restart application");
@@ -111,6 +111,12 @@ function _startRunner(runner) {
             options = { cwd: undefined,
                         env: process.env
                 };
+
+        // TODO(Piaoger): Debugging.
+        // Use --debug or --debug-brk
+        // default debugport is 5858.
+        args.push("--debug-brk");
+
         args.push(runner);
         _run(args, options);
     } else {
