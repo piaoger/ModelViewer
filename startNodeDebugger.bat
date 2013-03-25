@@ -1,4 +1,4 @@
-::echo off
+echo off
 
 set THIS_FOLDER_TAIL=%~dp0
 set THIS_FOLDER=%THIS_FOLDER_TAIL:~0,-1%

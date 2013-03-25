@@ -10,7 +10,8 @@ It's a 3d model viewer originated from thingiviewer.
 
 require.js is used for module support.
 
-requireJS compatiable require will also been used in Node Server side in the future.
+requireJS compatible require will also been used in Node Server side in the future.
+
 
 ### Web Worker
 
@@ -36,6 +37,18 @@ Production:    startNodeServer_Production.bat
 
 Terminate:     stopNodeServer_All.bat
 
+## How to debug
+
+# Debugging Node Application
+
+Eclipse:
+
+https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger
+
+node-inspector:
+
+http://howtonode.org/debugging-with-node-inspector
+http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/
 
 ## References
 
