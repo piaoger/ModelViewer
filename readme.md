@@ -20,6 +20,17 @@ requireJS compatible require will also been used in Node Server side in the futu
 
 Camera Widgets is introduced.
 
+### Udpate three.js from version 32 to version 56
+
+THREE.Camera is now deprecated:
+    we should replace it with THREE.PerspectiveCamera;
+    Use lookAt to set target;
+scene.addObject and scene.addLight were replaced with the simpler scene.add; Also removeObject, removeLight etc, are now just scene.remove. 
+
+THREE.Vertex is deprecated and use THREE.Vector3 instead;
+THREE.UV is deprecated and use THREE.Vector2 instead;
+Gemetry.uvs is deprecated and use Geometry.faceVertexUvs instead.
+
 
 ## How to use
 
@@ -37,9 +48,9 @@ Production:    startNodeServer_Production.bat
 
 Terminate:     stopNodeServer_All.bat
 
-## How to debug
+## How to debug Node Server
 
-# Debugging Node Application
+Debugging Node Application
 
 Eclipse:
 

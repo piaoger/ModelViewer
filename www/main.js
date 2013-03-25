@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 "use strict";
 
 // Dependencies
-require("3rd/three.min.r32");
+require("3rd/three.min.r56");
 
 
 // # CSS Beautifier

@@ -29,7 +29,8 @@ function Plane ( width, height, segments_width, segments_height ) {
             var x = ix * segmentWidth - width_half,
                 y = iy * segmentHeight - height_half;
 
-            this.vertices.push( new THREE.Vertex( new THREE.Vector3( x, - y, 0 ) ) );
+            this.vertices.push(new THREE.Vector3( x, - y, 0 ) );
+
         }
 
     }
@@ -44,20 +45,19 @@ function Plane ( width, height, segments_width, segments_height ) {
                 d = ( ix + 1 ) + gridX1 * iy;
 
             this.faces.push( new THREE.Face4( a, b, c, d ) );
-            this.uvs.push( [
-                        new THREE.UV( ix / gridX, iy / gridY ),
-                        new THREE.UV( ix / gridX, ( iy + 1 ) / gridY ),
-                        new THREE.UV( ( ix + 1 ) / gridX, ( iy + 1 ) / gridY ),
-                        new THREE.UV( ( ix + 1 ) / gridX, iy / gridY )
+            this.faceVertexUvs.push( [
+                        new THREE.Vector2( ix / gridX, iy / gridY ),
+                        new THREE.Vector2( ix / gridX, ( iy + 1 ) / gridY ),
+                        new THREE.Vector2( ( ix + 1 ) / gridX, ( iy + 1 ) / gridY ),
+                        new THREE.Vector2( ( ix + 1 ) / gridX, iy / gridY )
                     ]);
 
         }
-
     }
 
     this.computeCentroids();
     this.computeFaceNormals();
-    this.sortFacesByMaterial();
+    this.computeBoundingSphere();
 }
 
 Plane.prototype = new THREE.Geometry();

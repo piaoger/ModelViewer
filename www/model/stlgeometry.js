@@ -22,7 +22,7 @@ function StlGeometry(stlArray) {
 
     function v(x, y, z) {
         // log("adding vertex: " + x + "," + y + "," + z);
-        scope.vertices.push( new THREE.Vertex( new THREE.Vector3( x, y, z ) ) );
+        scope.vertices.push( new THREE.Vector3( x, y, z )  );
     }
 
     function f3(a, b, c) {
@@ -32,7 +32,7 @@ function StlGeometry(stlArray) {
 
     this.computeCentroids();
     this.computeFaceNormals();
-    this.sortFacesByMaterial();
+    this.computeBoundingSphere();
 
     scope.min_x = 0;
     scope.min_y = 0;
@@ -43,13 +43,13 @@ function StlGeometry(stlArray) {
     scope.max_z = 0;
 
     for (var v = 0, vl = scope.vertices.length; v < vl; v ++) {
-        scope.max_x = Math.max(scope.max_x, scope.vertices[v].position.x);
-        scope.max_y = Math.max(scope.max_y, scope.vertices[v].position.y);
-        scope.max_z = Math.max(scope.max_z, scope.vertices[v].position.z);
+        scope.max_x = Math.max(scope.max_x, scope.vertices[v].x);
+        scope.max_y = Math.max(scope.max_y, scope.vertices[v].y);
+        scope.max_z = Math.max(scope.max_z, scope.vertices[v].z);
 
-        scope.min_x = Math.min(scope.min_x, scope.vertices[v].position.x);
-        scope.min_y = Math.min(scope.min_y, scope.vertices[v].position.y);
-        scope.min_z = Math.min(scope.min_z, scope.vertices[v].position.z);
+        scope.min_x = Math.min(scope.min_x, scope.vertices[v].x);
+        scope.min_y = Math.min(scope.min_y, scope.vertices[v].y);
+        scope.min_z = Math.min(scope.min_z, scope.vertices[v].z);
     }
 
     scope.center_x = (scope.max_x + scope.min_x)/2;

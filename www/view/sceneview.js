@@ -89,26 +89,31 @@ function SceneView(containerId) {
         container.style.position = 'relative';
         container.innerHTML = '';
 
-        camera = new THREE.Camera(45, width/ height, 1, 100000);
+        // set some camera attributes
+        var viewAngle = 45,
+            aspect    = width / height,
+            near      = 0.1,
+            far       = 10000;
+        camera = new THREE.PerspectiveCamera (viewAngle, aspect, near, far);
         camera.updateMatrix();
 
         scene  = new THREE.Scene();
 
         ambientLight = new THREE.AmbientLight(0x202020);
-        scene.addLight(ambientLight);
+        scene.add(ambientLight);
 
         directionalLight = new THREE.DirectionalLight(0xffffff, 0.75);
         directionalLight.position.x = 1;
         directionalLight.position.y = 1;
         directionalLight.position.z = 2;
         directionalLight.position.normalize();
-        scene.addLight(directionalLight);
+        scene.add(directionalLight);
 
         pointLight = new THREE.PointLight(0xffffff, 0.3);
         pointLight.position.x = 0;
         pointLight.position.y = -25;
         pointLight.position.z = 10;
-        scene.addLight(pointLight);
+        scene.add(pointLight);
 
         progressBar = document.createElement('div');
         progressBar.style.position = 'absolute';
@@ -137,7 +142,7 @@ function SceneView(containerId) {
         container.appendChild(alertBox);
 
         if (showPlane) {
-            loadPlaneGeometry();
+           loadPlaneGeometry();
         }
 
         this.setCameraView(cameraView);
@@ -163,6 +168,8 @@ function SceneView(containerId) {
         // renderer.setSize(container.innerWidth, container.innerHeight);
 
         renderer.setSize(width, height);
+        renderer.sortObjects = false;
+        renderer.sortElements = false;
         renderer.domElement.style.backgroundColor = backgroundColor;
         container.appendChild(renderer.domElement);
 
@@ -178,7 +185,7 @@ function SceneView(containerId) {
         window.addEventListener('mousemove',      onRendererMouseMove,     false);
         window.addEventListener('mouseup',        onRendererMouseUp,       false);
 
-        // renderer.domElement.addEventListener('mousemove',      onRendererMouseMove,     false);        
+        // renderer.domElement.addEventListener('mousemove',      onRendererMouseMove,     false);
         renderer.domElement.addEventListener('mouseover',      onRendererMouseOver,     false);
         renderer.domElement.addEventListener('mouseout',       onRendererMouseOut,      false);
         renderer.domElement.addEventListener('mousedown',      onRendererMouseDown,     false);
@@ -203,7 +210,7 @@ function SceneView(containerId) {
     //   if (renderer) {
     //     renderer.setSize(width, height);
     //     camera.projectionMatrix = THREE.Matrix4.makePerspective(70, width / height, 1, 10000);
-    //     sceneLoop();
+    //     renderScene();
     //   }
     // };
 
@@ -244,7 +251,7 @@ function SceneView(containerId) {
         // targetRotation = object.rotation.z;
         if (timer == null) {
             // log('starting loop');
-            timer = setInterval(sceneLoop, 1000/60);
+            timer = setInterval(renderScene, 1000/60);
         }
     };
 
@@ -313,7 +320,7 @@ function SceneView(containerId) {
         targetXRotation = object.rotation.z;
         targetYRotation = object.rotation.x;
 
-        timer = setInterval(sceneLoop, 1000/60);
+        timer = setInterval(renderScene, 1000/60);
 
         if (event.touches.length == 1) {
             event.preventDefault();
@@ -345,7 +352,7 @@ function SceneView(containerId) {
         }
     };
 
-    var sceneLoop = function() {
+    var renderScene = function() {
         if (object) {
             // if (view == 'bottom') {
             //   if (showPlane) {
@@ -386,7 +393,7 @@ function SceneView(containerId) {
     var rotateLoop = function() {
         // targetRotation += 0.01;
         targetXRotation += 0.05;
-        sceneLoop();
+        renderScene();
     };
 
     this.getShowPlane = function(){
@@ -410,7 +417,7 @@ function SceneView(containerId) {
             }
         }
 
-        sceneLoop();
+        renderScene();
     };
 
     this.getRotation = function() {
@@ -470,18 +477,18 @@ function SceneView(containerId) {
                 plane.flipSided = false;
             }
         } else if (dir == 'side') {
-            // camera.position.y = -70;
-            // camera.position.z = 70;
+            //  camera.position.y = -70;
+            //  camera.position.z = 70;
             // camera.target.position.z = 0;
             targetYRotation = -4.5;
             if (showPlane) {
                 plane.flipSided = false;
             }
         } else if (dir == 'leftside') {
-                        // camera.position.y = -70;
+            // camera.position.y = 70;
             // camera.position.z = 70;
             // camera.target.position.z = 0;
-            targetYRotation = 4.5;
+            targetYRotation = -4.5;
             if (showPlane) {
                 plane.flipSided = false;
             }
@@ -493,8 +500,8 @@ function SceneView(containerId) {
                 plane.flipSided = true;
             }
         } else {
-            // camera.position.y = -70;
-            // camera.position.z = 70;
+           // camera.position.y = -70;
+           // camera.position.z = 70;
             // camera.target.position.z = 0;
             if (showPlane) {
                 plane.flipSided = false;
@@ -509,7 +516,7 @@ function SceneView(containerId) {
 
         scope.centerCamera();
 
-        sceneLoop();
+        renderScene();
     };
 
     this.setCameraZoom = function(factor) {
@@ -529,7 +536,10 @@ function SceneView(containerId) {
             camera.position.z -= factor;
         } else if (cameraView == 'bottom') {
             camera.position.z += factor;
-        } else if (cameraView == 'side' || cameraView == 'leftside') {
+        } else if (cameraView == 'side') {
+            camera.position.y += factor;
+            camera.position.z -= factor;
+        }  else if (cameraView == 'leftside') {
             camera.position.y += factor;
             camera.position.z -= factor;
         } else {
@@ -537,7 +547,7 @@ function SceneView(containerId) {
             camera.position.z -= factor;
         }
 
-        sceneLoop();
+        renderScene();
     };
 
     this.getObjectMaterial = function() {
@@ -571,7 +581,7 @@ function SceneView(containerId) {
     };
 
     this.loadStlString = function(STLString) {
-        scope.startLoadModelWorker('loadStlString', STLString);
+       scope.startLoadModelWorker('loadStlString', STLString);
     };
 
     this.loadStlBinary = function(STLBinary) {
@@ -604,9 +614,8 @@ function SceneView(containerId) {
             // log("bounding sphere radius = " + geometry.boundingSphere.radius);
 
             // look at the center of the object
-            camera.target.position.x = geometry.center_x;
-            camera.target.position.y = geometry.center_y;
-            camera.target.position.z = geometry.center_z;
+             var cameraTarget = new THREE.Vector3( geometry.center_x, geometry.center_y, geometry.center_z );
+             camera.lookAt(cameraTarget);
 
             // set camera position to center of sphere
             camera.position.x = geometry.center_x;
@@ -632,7 +641,8 @@ function SceneView(containerId) {
             // set to any valid position so it doesn't fail before geometry is available
             camera.position.y = -70;
             camera.position.z = 70;
-            camera.target.position.z = 0;
+
+            camera.lookAt(new THREE.Vector3( -70, 70, 0));
         }
     };
 
@@ -681,13 +691,13 @@ function SceneView(containerId) {
                 for (i in event.data.content[0]) {
                     // for (var i=0; i<10; i++) {
                     vector = new THREE.Vector3( event.data.content[0][i][0], event.data.content[0][i][1], event.data.content[0][i][2] );
-                    geometry.vertices.push( new THREE.Vertex( vector ) );
+                    geometry.vertices.push(vector);
                 }
 
                 particles = new THREE.ParticleSystem( geometry, material );
                 particles.sortParticles = true;
                 particles.updateMatrix();
-                scene.addObject( particles );
+                scene.add( particles );
 
                 camera.updateMatrix();
                 renderer.render(scene, camera);
@@ -739,7 +749,7 @@ function SceneView(containerId) {
         // TODO: switch to lines instead of the Plane object so we can get rid of the horizontal lines in canvas renderer...
         var PlaneModule = require("view/plane");
         plane = new THREE.Mesh(new PlaneModule.Plane(100, 100, 10, 10), new THREE.MeshBasicMaterial({color:0xafafaf,wireframe:true}));
-        scene.addObject(plane);
+        scene.add(plane);
     }
 
     function loadObjectGeometry() {
@@ -764,13 +774,13 @@ function SceneView(containerId) {
             if (object) {
                 // shouldn't be needed, but this fixes a bug with webgl not removing previous object when loading a new one dynamically
                 object.materials = [new THREE.MeshBasicMaterial({color:0xffffff, opacity:0})];
-                scene.removeObject(object);
+                scene.remove(object);
                 // object.geometry = geometry;
                 // object.materials = [material];
             }
 
             object = new THREE.Mesh(geometry, material);
-            scene.addObject(object);
+            scene.add(object);
 
             if (objectMaterial != 'wireframe') {
                 object.overdraw = true;
@@ -782,7 +792,7 @@ function SceneView(containerId) {
             targetXRotation = 0;
             targetYRotation = 0;
 
-            sceneLoop();
+            renderScene();
         }
     }
 
