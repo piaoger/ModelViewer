@@ -123,7 +123,7 @@
           background-color: rgba(0,192,255,0.2);
           border: 1px solid rgba(0,0,0,0.2);
         }
-        #cam-widget .cam-widget-button
+        #cam-widget .cam-widget-but
         {
           color: #c0c0c0;
           cursor: default;
@@ -135,13 +135,13 @@
           user-select: none;
           webkit-user-select: none;
         }
-        #cam-widget .cam-widget-button:hover
+        #cam-widget .cam-widget-but:hover
         {
           color: #fff;
           cursor: pointer;
           text-shadow: 0 0 3px #fff;
         }
-        #cam-widget .cam-widget-button:active
+        #cam-widget .cam-widget-but:active
         {
           color: #fff;
           text-shadow: 0 0 8px #fff;
@@ -180,6 +180,7 @@
         }
         #cam-widget #cam-widget-C
         {
+          background-image: url('./resources/editor-toolbar-icons.png');
           background-position: -494px -14px;
           height: 20px;
           left: 20px;
@@ -580,15 +581,15 @@
     <div id="viewer" style="width:100%;height:400px"></div>
     <div id="cam-widget" style="left:20px; top:20px;">
         <div id="cam-widget-rot" class="cam-widget-body">
-            <div id="cam-widget-N" class="cam-widget-button"><small>&#9650;</small></div>
-            <div id="cam-widget-S" class="cam-widget-button"><small>&#9660;</small></div>
-            <div id="cam-widget-E" class="cam-widget-button"><small>&#9654;</small></div>
-            <div id="cam-widget-W" class="cam-widget-button"><small>&#9664;</small></div>
-            <div id="cam-widget-C" class="cam-widget-button"><small>H</small></div>
+            <div id="cam-widget-N" class="cam-widget-but"><small>&#9650;</small></div>
+            <div id="cam-widget-S" class="cam-widget-but"><small>&#9660;</small></div>
+            <div id="cam-widget-E" class="cam-widget-but"><small>&#9654;</small></div>
+            <div id="cam-widget-W" class="cam-widget-but"><small>&#9664;</small></div>
+            <div id="cam-widget-C" class="cam-widget-but"></div>
         </div>
         <div id="cam-widget-zoom" class="cam-widget-body" style="top:70px;">
-      <div id="cam-widget-P" class="cam-widget-button">+</div>
-      <div id="cam-widget-M" class="cam-widget-button">-</div>
+      <div id="cam-widget-P" class="cam-widget-but">+</div>
+      <div id="cam-widget-M" class="cam-widget-but">-</div>
         </div>
     </div>
 </div>
