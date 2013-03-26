@@ -54,7 +54,7 @@ function _checkDependencies() {
 function _setupCamTool() {
 
     // Zoom in
-   $("#cam-widget-P").click(function() {
+    $("#cam-widget-P").click(function() {
         sceneview.setCameraZoom(5);
     });
 
@@ -87,27 +87,6 @@ function _setupCamTool() {
     $("#cam-widget-C").click(function() {
         sceneview.setCameraView('diagonal');
     });
-
-    /*
-        // Fit view to selections
-        $("#cam-widget-CS").click(function() {
-            a.Hi();
-            a.s();
-            return n
-        });
-
-
-        // Home help
-        $("#cam-widget-H").click(function() {
-            $("#cam-help-bubble").is(":visible") ? $("#cam-help-bubble").fadeOut(100) : $("#cam-help-bubble").fadeIn(50);
-            return n
-        });
-
-        $("#cam-help-bubble-close").click(function() {
-            $("#cam-help-bubble").fadeOut(100);
-            return n
-        });
-    */
 }
 
 function _onReady() {
@@ -115,7 +94,7 @@ function _onReady() {
     var SceneView = require("view/sceneview").SceneView;
 
     // Create Scene View
-	// Currently, let's global object to make things simple.
+	// Currently, let's use global object to make things simple.
     window.sceneview = new SceneView("viewer");
     sceneview.setObjectColor('#C0D8F0');
     sceneview.initScene();

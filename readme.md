@@ -8,27 +8,35 @@ It's a 3d model viewer originated from thingiviewer.
 
 ### Module Support
 
-require.js is used for module support.
+require.js and amdefine is used for modular JavaScript.
 
-requireJS compatible require will also been used in Node Server side in the future.
+Browser and Node.js sever can share some common modules with the help of amdfine.
 
 
 ### Web Worker
+
+WebWorker is modified to be compatible with requireJS
 
 
 ### Ui Changes
 
 Camera Widgets is introduced.
 
+
 ### Udpate three.js from version 32 to version 56
 
 THREE.Camera is now deprecated:
+
     we should replace it with THREE.PerspectiveCamera;
+
     Use lookAt to set target;
-scene.addObject and scene.addLight were replaced with the simpler scene.add; Also removeObject, removeLight etc, are now just scene.remove. 
+
+scene.addObject and scene.addLight were replaced with the simpler scene.add; Also removeObject, removeLight etc, are now just scene.remove.
 
 THREE.Vertex is deprecated and use THREE.Vector3 instead;
+
 THREE.UV is deprecated and use THREE.Vector2 instead;
+
 Gemetry.uvs is deprecated and use Geometry.faceVertexUvs instead.
 
 
@@ -36,32 +44,47 @@ Gemetry.uvs is deprecated and use Geometry.faceVertexUvs instead.
 
 ### Offline Viewer
 
-Chrome:  startChrome.bat
-Firefox: startFirefox.bat
+Chrome:
+
+    startChrome.bat
+
+Firefox:
+
+    startFirefox.bat
 
 ## Online Viewer
 
 The Web Server is built on Node.js.
 
-Development:   startNodeServer_Development.bat
-Production:    startNodeServer_Production.bat
+Development:
 
-Terminate:     stopNodeServer_All.bat
+    startNodeServer_Development.bat
+
+Production:
+
+    startNodeServer_Production.bat
+
+Terminate:
+
+    stopNodeServer_All.bat
+
 
 ## How to debug Node Server
 
-Debugging Node Application
+Debugging Node Application with Eclipse or node-inspector. I am prefer using node-inspector .
 
 Eclipse:
 
-https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger
+    https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger
 
 node-inspector:
 
-http://howtonode.org/debugging-with-node-inspector
-http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/
+    http://howtonode.org/debugging-with-node-inspector
 
-## References
+    http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/
+
+
+## More model viewers on Github
 
 ### FI-STLCAD
 
