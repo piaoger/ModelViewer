@@ -52,11 +52,11 @@ Terminate:     stopNodeServer_All.bat
 
 Debugging Node Application
 
-Eclipse:
+1. Eclipse:
 
-https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger
+[Using Eclipse as Node Debugger] (https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger)
 
-node-inspector:
+2. node-inspector:
 
 http://howtonode.org/debugging-with-node-inspector
 http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/
