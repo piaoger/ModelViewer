@@ -39,7 +39,7 @@ set path=%path%;%SMCP_NODE_PATH%
 cd /d %SMCP_ROOT%\server
 
 :: Set up settings for Node.js runtime
-set NODE_PATH=%SMCP_ROOT%\server
+set NODE_PATH=%SMCP_ROOT%\server;%SMCP_ROOT%\common
 set NODE_ENV=production
 
 :: Using NPM to start up application.
