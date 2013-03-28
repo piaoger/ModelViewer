@@ -76,4 +76,8 @@ This is a Github Page template to show off your 3D printer model or project. Ins
 
 https://github.com/garyhodgson/githubiverse-template
 
+## More Information
+
+TODO
+
 
