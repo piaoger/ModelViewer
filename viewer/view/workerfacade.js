@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 
 function WorkerFacade()  {
 
-    /* A facade for the Web Worker API that fakes it in case it's missing. 
+    /* A facade for the Web Worker API that fakes it in case it's missing.
     Good when web workers aren't supported in the browser, but it's still fast enough, so execution doesn't hang too badly (e.g. Opera 10.5).
     By Stefan Wehrmeyer, licensed under MIT
     */
@@ -50,12 +50,12 @@ function WorkerFacade()  {
                     }
                 };
                 document.body.appendChild(scr);
-                
+
                 var binaryscr = document.createElement("SCRIPT");
-                binaryscr.src = 'model/binaryReader.js';
+                binaryscr.src = '../common/binaryReader.js';
                 binaryscr.type = "text/javascript";
                 document.body.appendChild(binaryscr);
-                
+
                 return theworker;
             };
             that.fake = true;

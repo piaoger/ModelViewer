@@ -62,16 +62,20 @@ function _startWebServer() {
         //app.set("view options", {layout: false});
         //app.use(express.static(__dirname + '/../www'));
 
-        app.use(gzippo.staticGzip(__dirname + '/../www'));
+        // Web root is also set here
+        app.use(gzippo.staticGzip(__dirname + '/..'));
 
         // Url Routing
         !function(app ) {
 
             // Root URI
             app.get('/', function(req, res) {
+                // req.url == '/'
+                res.redirect('/viewer/index.html');
+            });
 
-            	// req/url == '/'
-                res.redirect('/index.html');
+            app.get('/viewer', function(req, res) {
+                res.redirect('/viewer/index.html');
             });
 
             // Heartbeat
@@ -98,9 +102,6 @@ function _startWebServer() {
     // GET request
     var startRouter = function(path){
         app.get(route, function(req,res){
-            //console.log("Connect to "+path);
-            //var page = info[routes[path].data];
-            //res.render(routes[path].template, page);
             res.render(routes[path].template);
         });
     };
@@ -127,7 +128,7 @@ function _startWebServer() {
 *   WebServer is setup and started automatically.
 */
 function _startup() {
-    var utils = require('utils.js');
+    var utils = require('../common/utils.js');
     console.log(utils.getSomething());
     _startWebServer();
 }

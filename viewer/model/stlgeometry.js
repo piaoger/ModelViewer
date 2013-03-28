@@ -7,7 +7,7 @@ function StlGeometry(stlArray) {
 
     THREE.Geometry.call(this);
 
-    var log = require('model/log').log;
+    var log = require('../../common/log').log;
     log("building geometry...");
 
     var scope = this;

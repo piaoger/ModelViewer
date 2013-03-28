@@ -46,11 +46,11 @@ Gemetry.uvs is deprecated and use Geometry.faceVertexUvs instead.
 
 Chrome:
 
-    startChrome.bat
+    startOffline_Chrome.bat
 
 Firefox:
 
-    startFirefox.bat
+    startOffline_Firefox.bat
 
 ## Online Viewer
 
@@ -67,6 +67,10 @@ Production:
 Terminate:
 
     stopNodeServer_All.bat
+
+Node-inspector:
+
+    startNodeDebugger.bat
 
 
 ## How to debug Node Server

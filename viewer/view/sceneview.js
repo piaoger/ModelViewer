@@ -10,7 +10,7 @@ define(function (require, exports, module) {
 function SceneView(containerId) {
 
     var StlGeometry = require("model/stlgeometry").StlGeometry;
-        log         = require('model/log').log;
+        log         = require('../../common/log').log;
 
     var scope = this;
 

@@ -9,7 +9,7 @@ require(
 
     { baseUrl: "./"},
 
-    ["../model/modelloader"],
+    ["../../common/modelloader"],
 
     function(modelloader) {
 

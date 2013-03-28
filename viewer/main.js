@@ -9,6 +9,9 @@ define(function (require, exports, module) {
 // Dependencies
 require("3rd/three.min.r56");
 
+// Common module testing
+var utils = require('../common/utils.js');
+console.log(utils.getSomething());
 
 // # CSS Beautifier
 // http://www.lonniebest.com/formatcss/
