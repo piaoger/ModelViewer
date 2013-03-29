@@ -1,2 +1,2 @@
 
-Common JavaScript Modules which are compatiable with both Node.js and Browser.
+Common JavaScript Modules which are compatible with both Node.js and Browser.

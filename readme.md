@@ -6,43 +6,58 @@ It's a 3d model viewer originated from thingiviewer.
 
 ## Changes
 
-### Module Support
+### Modular JavaScript Support
 
-require.js and amdefine is used for modular JavaScript.
+Split Thingiview into multiple modules.
 
-Browser and Node.js sever can share some common modules with the help of amdfine.
+require.js and amdefine is used for modular JavaScript, so that we can share some common modules between Browser and Node.js.
 
 
 ### Web Worker
 
-WebWorker is modified to be compatible with requireJS
+loadmodelworker is a WebWorker which is used for load mesh models.
+
+It is modified to be compatible with requireJS.
 
 
 ### Ui Changes
 
-Camera Widgets is introduced.
+Camera Widgets is add. It's borrowed from TinkerCAD.
 
 
-### Udpate three.js from version 32 to version 56
+### Udpate three.js library
 
-THREE.Camera is now deprecated:
+Three.js used by original Thingiview is still Version 32. I updated it Ver32 to Ver56 for there are a couple interfaces changed since Ver32.
 
-    we should replace it with THREE.PerspectiveCamera;
+Details:
 
-    Use lookAt to set target;
+  THREE.Camera used by origin Thingiview is is now deprecated:
 
-scene.addObject and scene.addLight were replaced with the simpler scene.add; Also removeObject, removeLight etc, are now just scene.remove.
+      we should replace it with THREE.PerspectiveCamera;
 
-THREE.Vertex is deprecated and use THREE.Vector3 instead;
+      Use lookAt to set target;
 
-THREE.UV is deprecated and use THREE.Vector2 instead;
+  scene.addObject and scene.addLight were replaced with the simpler scene.add; Also removeObject, removeLight etc, are now just scene.remove.
 
-Gemetry.uvs is deprecated and use Geometry.faceVertexUvs instead.
+  THREE.Vertex is deprecated and use THREE.Vector3 instead;
 
+  THREE.UV is deprecated and use THREE.Vector2 instead;
+
+  Gemetry.uvs is deprecated and use Geometry.faceVertexUvs instead.
+
+### Others
+
+Fixed some minor issues found in Thingiview.
 
 ## How to use
 
+You can start the STL Viewer offline or from Node.js Web Server.
+
 ### Offline Viewer
+
+
+You can view STL model Offline with browser supporting WebGL.
+
 
 Chrome:
 
@@ -77,15 +92,15 @@ Node-inspector:
 
 Debugging Node Application with Eclipse or node-inspector. I am prefer using node-inspector .
 
-1. Eclipse:
+1. Eclipse
 
 [Using Eclipse as Node Debugger] (https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger)
 
-2. node-inspector:
+2. node-inspector
 
-    http://howtonode.org/debugging-with-node-inspector
+[Debugging with Node Inspector](http://howtonode.org/debugging-with-node-inspector)
 
-    http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/
+[The inspector debugging Node.js](http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/)
 
 
 ## More model viewers on Github
@@ -94,13 +109,13 @@ Debugging Node Application with Eclipse or node-inspector. I am prefer using nod
 
 Fisher Innovation STLCAD is a model preparation and slicing application for use when preapring 3D models for output on a 3D printer.
 
-https://github.com/fisherinnovation/FI-STLCAD
+[FI-STLCAD @ Github](https://github.com/fisherinnovation/FI-STLCAD)
 
 
 ### githubiverse-template
 
 This is a Github Page template to show off your 3D printer model or project. Inspiration clearly taken from the excellent Thingiverse.
 
-https://github.com/garyhodgson/githubiverse-template
+[githubiverse-template @ Github](https://github.com/garyhodgson/githubiverse-template)
 
 
