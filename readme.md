@@ -94,13 +94,13 @@ Debugging Node Application with Eclipse or node-inspector. I am prefer using nod
 
 1. Eclipse
 
-[Using Eclipse as Node Debugger] (https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger)
+    [Using Eclipse as Node Debugger] (https://github.com/joyent/node/wiki/Using-Eclipse-as-Node-Applications-Debugger)
 
 2. node-inspector
 
-[Debugging with Node Inspector](http://howtonode.org/debugging-with-node-inspector)
+    [Debugging with Node Inspector](http://howtonode.org/debugging-with-node-inspector)
 
-[The inspector debugging Node.js](http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/)
+    [The inspector debugging Node.js](http://www.noanylove.com/2011/12/node-the-inspector-debugging-node-js/)
 
 
 ## More model viewers on Github
