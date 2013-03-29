@@ -36,10 +36,10 @@ if %SMCP_CPU_ARCH%==x86 (
 
 set path=%path%;%SMCP_NODE_PATH%
 
-cd /d %SMCP_ROOT%\server
+cd /d %SMCP_ROOT%\www\server
 
 :: Set up settings for Node.js runtime
-set NODE_PATH=%SMCP_ROOT%\server;%SMCP_ROOT%\common
+set NODE_PATH=%SMCP_ROOT%\www\server;%SMCP_ROOT%\www\common
 set NODE_ENV=production
 
 :: Using NPM to start up application.

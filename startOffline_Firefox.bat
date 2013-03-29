@@ -74,5 +74,5 @@ echo CPU Architecture is %SMCP_CPU_ARCH%
 echo Firefox version is %SMCP_FIREFOX_VERSION%
 echo Firefox Path is %SMCP_FIREFOX_PATH%
 
-%SMCP_FIREFOX_PATH% -url file:///%THIS_FOLDER%\viewer\index.html
+%SMCP_FIREFOX_PATH% -url file:///%THIS_FOLDER%\www\viewer\index.html
 
