@@ -254,7 +254,7 @@
 
     <div id="sidebar" style="float:right;height:400px;width:45%">
         <form>
-            <textarea id="stlstring" style="height:400px;width:100%">
+            <textarea id="stlstring" style="height:300px;width:100%">
                 solid OpenSCAD_Model
                   facet normal -1.000000 -0.000000 -0.000000
                     outer loop
@@ -571,7 +571,14 @@
                   endfacet
                 endsolid OpenSCAD_Model
             </textarea>
-            <input type="button" value="Load" onclick="sceneview.loadStlString(document.getElementById('stlstring').value);" style="float:left;">
+            <input type="button" value="Load from String" onclick="sceneview.loadStlString(document.getElementById('stlstring').value);" style="float:left;">
+
+            <br/>
+            <br/>
+
+            <textarea id="stlurl" style="height:10;width:100%">
+            </textarea>
+            <input type="button" value="Load from Url" onclick="sceneview.loadStl(document.getElementById('stlurl').value);" style="float:left">
         </form>
     </div>
 

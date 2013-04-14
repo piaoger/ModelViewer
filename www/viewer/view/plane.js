@@ -32,7 +32,6 @@ function Plane ( width, height, segments_width, segments_height ) {
             this.vertices.push(new THREE.Vector3( x, - y, 0 ) );
 
         }
-
     }
 
     for( iy = 0; iy < gridY; iy++ ) {

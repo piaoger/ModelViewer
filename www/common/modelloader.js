@@ -26,14 +26,19 @@ function ModelLoader(event) {
         // The following line says we want to receive data as Binary and not as Unicode
         req.overrideMimeType('text/plain; charset=x-user-defined');
         req.send(null);
-        if (req.status != 200) {
+
+        // XMLHttpRequest.status is 0 (not 200) for local file://
+        // file:///W:/Sync/ModelViewer/www/samples/39t17p.stl
+        if(url.indexOf('file://') == 0 && req.status == 0) {
+            return req.responseText;
+        } else if (req.status == 200) {
+            return req.responseText;
+        } else {
             return '';
         }
-
-        return req.responseText;
     };
 
-    this.loadSTL = function(url) {
+    this.loadStl = function(url) {
         var looksLikeStlBinary = function(reader) {
             // STL files don't specify a way to distinguish ASCII from binary.
             // The usual way is checking for "solid" at the start of the file --
@@ -306,8 +311,8 @@ function ModelLoader(event) {
     var eventParam = event.data.param;
     switch(event.data.cmd) {
 
-    case "loadSTL":
-      this.loadSTL(eventParam);
+    case "loadStl":
+      this.loadStl(eventParam);
       break;
 
     case "loadStlString":

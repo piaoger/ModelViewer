@@ -572,8 +572,8 @@ function SceneView(containerId) {
         loadObjectGeometry();
     };
 
-    this.loadSTL = function(url) {
-        scope.startLoadModelWorker('loadSTL', url);
+    this.loadStl = function(url) {
+        scope.startLoadModelWorker('loadStl', url);
     };
 
     this.loadOBJ = function(url) {
@@ -730,7 +730,7 @@ function SceneView(containerId) {
         };
 
         worker.onerror = function(error) {
-            scope.log(error);
+            log(error);
             error.preventDefault();
         };
     };

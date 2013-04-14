@@ -3,14 +3,20 @@
 
 It's a 3d model viewer originated from thingiviewer.
 
+I had two goals while I starting up this project:
+
+    1. Investigating on how to write shared code between server with client using AMD/RequireJS
+
+    2. Learning three.js
 
 ## Changes
 
 ### Modular JavaScript Support
 
-Split Thingiview into multiple modules.
+Splitting Thingiview into multiple modules.
 
-require.js and amdefine is used for modular JavaScript, so that we can share some common modules between Browser and Node.js.
+require.js and amdefine are used for modular JavaScript, so that we can share some common modules between Browser and Node.js.
+
 
 
 ### Web Worker
@@ -48,6 +54,8 @@ Details:
 ### Others
 
 Fixed some minor issues found in Thingiview.
+
+     XMLHttpRequest.status is 0 (not 200) for local file:// resources
 
 ## How to use
 

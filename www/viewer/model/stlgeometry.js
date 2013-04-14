@@ -8,7 +8,6 @@ function StlGeometry(stlArray) {
     THREE.Geometry.call(this);
 
     var log = require('../../common/log').log;
-    log("building geometry...");
 
     var scope = this;
 
@@ -21,12 +20,10 @@ function StlGeometry(stlArray) {
     }
 
     function v(x, y, z) {
-        // log("adding vertex: " + x + "," + y + "," + z);
         scope.vertices.push( new THREE.Vector3( x, y, z )  );
     }
 
     function f3(a, b, c) {
-        // log("adding face: " + a + "," + b + "," + c)
         scope.faces.push( new THREE.Face3( a, b, c ) );
     }
 
