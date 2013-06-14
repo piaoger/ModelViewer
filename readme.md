@@ -28,12 +28,12 @@ It is modified to be compatible with requireJS.
 
 ### Ui Changes
 
-Camera Widgets is add. It's borrowed from TinkerCAD.
+Camera Widgets is add. It's borrowed from Google earth and TinkerCAD.
 
 
 ### Udpate three.js library
 
-Three.js used by original Thingiview is still Version 32. I updated it Ver32 to Ver56 for there are a couple interfaces changed since Ver32.
+Three.js used by original Thingiview is still Version 32. I updated it Version 32 to 56 for there are a couple interfaces changed since version 32.
 
 Details:
 
@@ -50,6 +50,10 @@ Details:
   THREE.UV is deprecated and use THREE.Vector2 instead;
 
   Gemetry.uvs is deprecated and use Geometry.faceVertexUvs instead.
+
+### Use Node.js as web server
+
+Use Node.js as web server, not PHP instead.
 
 ### Others
 
@@ -112,6 +116,12 @@ Debugging Node Application with Eclipse or node-inspector. I am prefer using nod
 
 
 ## More model viewers on Github
+
+### thingiviewer.js
+
+Javascript 3D Model Viewer.
+
+[thingiviewer.js @ Github](https://github.com/tbuser/thingiview.js)
 
 ### FI-STLCAD
 
